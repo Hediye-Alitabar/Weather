@@ -19,6 +19,7 @@ function fetchData() {
     });
 }
 
+// Images
 let weatherPhotos = {
   partlyCloudy: "./Images/partlyCloudy.png",
   rainDrop: "./Images/rainDrop.png",
@@ -27,34 +28,6 @@ let weatherPhotos = {
   storm: "./Images/storm.png",
   Clear: "./Images/Clear.png",
 };
-
-const descToPersian = {
-  clearSky: "هوای صاف",
-  lightRain: "باران ملایم",
-  scatteredClouds: "ابرهای پراکنده",
-  fewClouds : "کمی ابری"
-};
-
-function todayDate(data) {
-  const header = document.getElementById("header");
-  const todayData = data.find((item) => item.dateTitle === "امروز");
-  if (todayData) {
-    const todayWeather = document.createElement("div");
-    // const location = document.createElement("div");
-    // location.textContent = 'تهران';
-    // header.appendChild(location);
-    // todayWeather.classList.add("today");
-    const todayDate = new Date(todayData.date);
-    const options = { weekday: "long", month: "long", day: "numeric" };
-    todayWeather.innerHTML = `<p>${todayDate.toLocaleDateString(
-      "fa-IR",
-      options
-    )}</p> `;
-    header.appendChild(todayWeather);
-  } else {
-    console.error("No weather data available for today.");
-  }
-}
 
 function weatherImage(weather) {
   switch (weather) {
@@ -75,6 +48,14 @@ function weatherImage(weather) {
   }
 }
 
+// Descriptions
+const descToPersian = {
+  clearSky: "هوای صاف",
+  lightRain: "باران ملایم",
+  scatteredClouds: "ابرهای پراکنده",
+  fewClouds: "کمی ابری",
+};
+
 function weatherDesc(weather) {
   switch (weather) {
     case "clear sky":
@@ -83,8 +64,8 @@ function weatherDesc(weather) {
       return descToPersian.lightRain;
     case "scattered clouds":
       return descToPersian.scatteredClouds;
-      case "few clouds":
-        return descToPersian.fewClouds;
+    case "few clouds":
+      return descToPersian.fewClouds;
     default:
       return "";
   }
@@ -95,8 +76,26 @@ function toPersianNumber(number) {
   return number.toString().replace(/\d/g, (d) => persianDigits[d]);
 }
 
+function todayDate(data) {
+  const header = document.getElementById("header");
+  const todayData = data.find((item) => item.dateTitle === "امروز");
+  if (todayData) {
+    const todayWeather = document.createElement("div");
+    const todayDate = new Date(todayData.date);
+    const options = { weekday: "long", month: "long", day: "numeric" };
+    todayWeather.innerHTML = `<p>${todayDate.toLocaleDateString(
+      "fa-IR",
+      options
+    )}</p> `;
+    header.appendChild(todayWeather);
+  } else {
+    console.error("No weather data available for today.");
+  }
+}
+
+// Display today information
 function displayTodayWeather(data) {
-  const header = document.getElementById("today");
+  const today = document.getElementById("today");
   const todayData = data.find((item) => item.dateTitle === "امروز");
   if (todayData) {
     const todayWeather = document.createElement("div");
@@ -111,9 +110,7 @@ function displayTodayWeather(data) {
     const dateIcon = document.createElement("div");
     dateIcon.classList.add("today_icon");
     const iconUrl = weatherImage(todayData.weather.main);
-    // if (iconUrl) {
     dateIcon.innerHTML = `<img src="${iconUrl}">`;
-    // }
     todayWeather.appendChild(dateIcon);
 
     const currentTempElement = document.createElement("h2");
@@ -132,18 +129,19 @@ function displayTodayWeather(data) {
     temp_max.classList.add("temp_max");
     const temp_min = document.createElement("span");
     temp_min.classList.add("temp_min");
-    temp_min.textContent = `حداقل ${minTemp}°`;
-    temp_max.textContent = `${maxTemp}°` + `حداکثر`;
+    temp_min.textContent = `${minTemp}° حداقل`;
+    temp_max.textContent = `${maxTemp}° حداکثر`;
     temp.appendChild(temp_min);
     temp.appendChild(temp_max);
     todayWeather.appendChild(temp);
 
-    header.appendChild(todayWeather);
+    today.appendChild(todayWeather);
   } else {
     console.error("No weather data available for today.");
   }
 }
 
+// Display information about all days except today
 function displayData(data) {
   const container = document.getElementById("weather-container");
   container.innerHTML = "";
@@ -174,8 +172,8 @@ function displayData(data) {
     temp.classList.add("temp");
     const temp_max = document.createElement("span");
     const temp_min = document.createElement("span");
-    temp_min.textContent = `°${minTemp} حداقل`;
-    temp_max.textContent = `°${maxTemp} حداکثر`;
+    temp_min.textContent = `${minTemp}° حداقل`;
+    temp_max.textContent = `${maxTemp}° حداکثر`;
     temp.appendChild(temp_min);
     temp.appendChild(temp_max);
     weatherCard.appendChild(temp);
@@ -184,13 +182,14 @@ function displayData(data) {
   });
 }
 
+// Set dark and light mode
 function theme() {
   const hour = new Date().getHours();
   const body = document.body;
 
   if (hour >= 18 || hour < 6) {
     body.classList.add("dark-mode");
-  }else {
+  } else {
     body.classList.add("main");
   }
 }
