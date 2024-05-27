@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-}
-
 body {
   background: linear-gradient(
     167.44deg,
@@ -15,19 +11,18 @@ body {
     #33aadd 47.38%,
     #2dc8ea 100%
   );
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  font-family: Vazirmatn, sans-serif;
+  color: rgba(255, 255, 255, 1);
+  font-size: 16px;
+  line-height: 25px;
 }
 
 .main {
-  width: 100%;
-  height: 80%; 
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 100%;
 }
 
 #header {
@@ -36,15 +31,13 @@ body {
   flex-direction: row-reverse;
   align-items: center;
   width: 90%;
-  margin: 2% 7%;
+  margin: 3% 7%;
 }
 
 .middle {
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
-  width: 100%;
-  height: 80%;
   text-align: center;
 }
 
@@ -65,19 +58,18 @@ body {
 .container {
   background: rgba(255, 255, 255, 0.05);
   width: 60%;
-  border-radius: 16px 0px 0px 0px;
-  opacity: 0px;
+  border-radius: 16px;
 }
 
 .weather-card {
-  border-radius: 5px;
+  border-radius: 7px;
   padding: 2px;
   margin: 10px;
   color: #d8d8d9;
   display: flex;
   justify-content: space-between;
   flex-direction: row-reverse;
-  text-align: center;
+  align-items: center;
 }
 
 .weather-card:not(:last-child) {
@@ -102,6 +94,56 @@ body {
   text-align: center;
 }
 
+.today_temp {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+i {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: "row-reverse";
+}
+
+.container-header {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 20px;
+}
+
+.wavy_lines {
+  width: 100%;
+  height: 10%;
+  position: relative;
+  top: -50px;
+}
+
+.line1,
+.line2,
+.line3,
+.line4 {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.5);
+  stroke-width: 2;
+}
+
+.line1 {
+  opacity: 1;
+}
+
+.line2 {
+  opacity: 0.5;
+}
+
+.line3 {
+  opacity: 0.3;
+}
+
+.line4 {
+  opacity: 0.3;
+}
+
 .dark-mode {
   background: linear-gradient(
     167.44deg,
@@ -109,6 +151,50 @@ body {
     #134cb5 47.38%,
     #0b42ab 100%
   );
-  width: 100%;
-  height: 80%;
+}
+
+@media (max-width: 356px) {
+  #header {
+    align-items: flex-start;
+    text-align: left;
+    padding: 2px;
+  }
+
+  .wavy_lines {
+    display: none;
+  }
+
+  .middle {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  #today {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .today_icon img {
+    width: 50%;
+    height: 50%;
+  }
+
+  .temp {
+    gap: 5px;
+    justify-content: space-between;
+  }
+
+  .container {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .weather-card {
+    justify-content: space-between;
+    flex-direction: row-reverse;
+  }
+
+  .temp {
+    width: 100%;
+  }
 }

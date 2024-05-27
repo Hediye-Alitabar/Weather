@@ -103,6 +103,7 @@ function displayTodayWeather(data) {
 
     const maxTemp = toPersianNumber(parseFloat(todayData.max).toFixed(0));
     const minTemp = toPersianNumber(parseFloat(todayData.min).toFixed(0));
+    
     const currentTemp = toPersianNumber(
       parseFloat(todayData.current).toFixed(0)
     );
@@ -124,7 +125,7 @@ function displayTodayWeather(data) {
     todayWeather.appendChild(dateDesc);
 
     const temp = document.createElement("div");
-    temp.classList.add("temp");
+    temp.classList.add("today_temp");
     const temp_max = document.createElement("span");
     temp_max.classList.add("temp_max");
     const temp_min = document.createElement("span");
